@@ -10,30 +10,30 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class BugController {
 
-    private final BugRepository bugs;
+	private final BugRepository bugs;
 
 	@GetMapping("/bugs/memory")
-    @ResponseBody
+	@ResponseBody
 	public String flipMemoryLeak() {
-        bugs.flipMemoryLeak();
+		bugs.flipMemoryLeak();
 
-        return "OK";
+		return "OK";
 	}
 
-    @ResponseBody
-    @GetMapping("/bugs/cpu")
+	@ResponseBody
+	@GetMapping("/bugs/cpu")
 	public String flipCpuLeak() {
-        bugs.flipCpuLeak();
+		bugs.flipCpuLeak();
 
-        return "OK";
+		return "OK";
 	}
 
-    @ResponseBody
-    @GetMapping("/bugs/locking")
+	@ResponseBody
+	@GetMapping("/bugs/locking")
 	public String flipLocking() {
-        bugs.flipLocking();
+		bugs.flipLocking();
 
-        return "OK";
+		return "OK";
 	}
 
 }

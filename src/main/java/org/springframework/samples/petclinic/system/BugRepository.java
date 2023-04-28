@@ -8,20 +8,22 @@ import lombok.Getter;
 @Getter
 public class BugRepository {
 
-    private boolean memory = false;
-    private boolean cpu = false;
-    private boolean locking = false;
+	private boolean memory = false;
 
-    public void flipMemoryLeak() {
-        memory = !memory;
-    }
+	private boolean cpu = false;
 
-    public void flipCpuLeak() {
-        cpu = !cpu;
-    }
+	private boolean locking = false;
 
-    public void flipLocking() {
-        locking = !locking;
-    }
+	public void flipMemoryLeak() {
+		memory = !memory;
+	}
+
+	public void flipCpuLeak() {
+		cpu = !cpu;
+	}
+
+	public void flipLocking() {
+		locking = !locking;
+	}
 
 }

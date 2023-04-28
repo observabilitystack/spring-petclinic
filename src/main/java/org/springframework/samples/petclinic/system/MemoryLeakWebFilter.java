@@ -16,18 +16,19 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MemoryLeakWebFilter extends GenericFilterBean {
 
-    private final BugRepository bugs;
-    private final Random random = new Random();
+	private final BugRepository bugs;
 
-    @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-            throws IOException, ServletException {
+	private final Random random = new Random();
 
-        if (bugs.isMemory()) {
-            getServletContext().setAttribute("bug" + random.nextInt(), new byte[256]);
-        }
+	@Override
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
 
-        chain.doFilter(request, response);
-    }
+		if (bugs.isMemory()) {
+			getServletContext().setAttribute("bug" + random.nextInt(), new byte[256]);
+		}
+
+		chain.doFilter(request, response);
+	}
 
 }

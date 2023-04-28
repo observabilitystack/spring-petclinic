@@ -16,25 +16,26 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CpuLeakWebFilter extends GenericFilterBean {
 
-    private final BugRepository bugs;
-    private final AtomicInteger threadNo = new AtomicInteger(0);
+	private final BugRepository bugs;
 
-    @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-            throws IOException, ServletException {
+	private final AtomicInteger threadNo = new AtomicInteger(0);
 
-        if (bugs.isCpu()) {
-            new Thread("cpu-reaper-" + threadNo.incrementAndGet()) {
-                public void run() {
-                    for (int i = 0; i < 1_000_000; i++) {
-                        Math.tan(Math.atan(Math.tan(Math.atan(
-                                Math.tan(Math.atan(Math.tan(Math.atan(Math.tan(Math.atan(123456789.123456789))))))))));
-                    }
-                };
-            }.start();
-        }
+	@Override
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
 
-        chain.doFilter(request, response);
-    }
+		if (bugs.isCpu()) {
+			new Thread("cpu-reaper-" + threadNo.incrementAndGet()) {
+				public void run() {
+					for (int i = 0; i < 1_000_000; i++) {
+						Math.tan(Math.atan(Math.tan(Math.atan(
+								Math.tan(Math.atan(Math.tan(Math.atan(Math.tan(Math.atan(123456789.123456789))))))))));
+					}
+				};
+			}.start();
+		}
+
+		chain.doFilter(request, response);
+	}
 
 }

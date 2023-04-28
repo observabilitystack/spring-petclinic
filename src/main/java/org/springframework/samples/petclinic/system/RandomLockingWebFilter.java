@@ -18,32 +18,37 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RandomLockingWebFilter extends GenericFilterBean {
 
-    private final BugRepository bugs;
-    private final Random random = new Random();
-    private final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
+	private final BugRepository bugs;
 
-    @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-            throws IOException, ServletException {
+	private final Random random = new Random();
 
-        if (bugs.isLocking()) {
-            Lock l = null;
+	private final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
 
-            if (random.nextDouble() > 0.5d) {
-                l = lock.writeLock();
-            } else {
-                l = lock.readLock();
-            }
+	@Override
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
 
-            try {
-                l.lock();
-                chain.doFilter(request, response);
-            } finally {
-                l.unlock();
-            }
-        } else {
-            chain.doFilter(request, response);
-        }
-    }
+		if (bugs.isLocking()) {
+			Lock l = null;
+
+			if (random.nextDouble() > 0.5d) {
+				l = lock.writeLock();
+			}
+			else {
+				l = lock.readLock();
+			}
+
+			try {
+				l.lock();
+				chain.doFilter(request, response);
+			}
+			finally {
+				l.unlock();
+			}
+		}
+		else {
+			chain.doFilter(request, response);
+		}
+	}
 
 }
