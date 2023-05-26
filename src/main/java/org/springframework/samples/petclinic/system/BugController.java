@@ -14,26 +14,20 @@ public class BugController {
 
 	@GetMapping("/bugs/memory")
 	@ResponseBody
-	public String flipMemoryLeak() {
-		bugs.flipMemoryLeak();
-
-		return "OK";
+	public Boolean flipMemoryLeak() {
+		return bugs.flipMemoryLeak();
 	}
 
 	@ResponseBody
 	@GetMapping("/bugs/cpu")
-	public String flipCpuLeak() {
-		bugs.flipCpuLeak();
-
-		return "OK";
+	public Boolean flipCpuLeak() {
+		return bugs.flipCpuLeak();
 	}
 
 	@ResponseBody
 	@GetMapping("/bugs/locking")
-	public String flipLocking() {
-		bugs.flipLocking();
-
-		return "OK";
+	public Boolean flipLocking() {
+		return bugs.flipLocking();
 	}
 
 }

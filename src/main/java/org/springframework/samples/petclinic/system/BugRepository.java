@@ -14,16 +14,19 @@ public class BugRepository {
 
 	private boolean locking = false;
 
-	public void flipMemoryLeak() {
+	public boolean flipMemoryLeak() {
 		memory = !memory;
+		return memory;
 	}
 
-	public void flipCpuLeak() {
+	public boolean flipCpuLeak() {
 		cpu = !cpu;
+		return cpu;
 	}
 
-	public void flipLocking() {
+	public boolean flipLocking() {
 		locking = !locking;
+		return locking;
 	}
 
 }
