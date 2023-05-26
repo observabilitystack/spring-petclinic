@@ -11,7 +11,7 @@ COPY src src
 RUN ./mvnw --batch-mode clean package -DskipTests
 
 # Runner
-FROM eclipse-temurin:19-jdk
+FROM eclipse-temurin:20-jdk
 
 COPY --from=builder /workspace/app/target/spring-petclinic*.jar /spring-petclinic.jar
 
