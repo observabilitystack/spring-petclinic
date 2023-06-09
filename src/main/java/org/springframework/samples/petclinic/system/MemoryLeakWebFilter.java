@@ -25,7 +25,7 @@ public class MemoryLeakWebFilter extends GenericFilterBean {
 			throws IOException, ServletException {
 
 		if (bugs.isMemory()) {
-			getServletContext().setAttribute("bug" + random.nextInt(), new byte[256]);
+			getServletContext().setAttribute("bug" + random.nextInt(), new byte[1024]);
 		}
 
 		chain.doFilter(request, response);
